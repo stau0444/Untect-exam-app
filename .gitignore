@@ -1,0 +1,5 @@
+# Project exclude paths
+/.gradle/
+/comp/paper-user/build/
+/comp/paper-user/build/classes/java/main/
+/comp/paper-user/build/classes/java/test/
