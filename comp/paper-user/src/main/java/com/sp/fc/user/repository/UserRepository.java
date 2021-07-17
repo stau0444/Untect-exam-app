@@ -5,9 +5,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+
 
 public interface UserRepository extends JpaRepository<User,Long> {
 
@@ -34,4 +36,6 @@ public interface UserRepository extends JpaRepository<User,Long> {
     @Query("select count(u) from User u , Authority a where u.school.id = ?1 and a.userId = ?2")
     long countAllByAuthoritiesIn(Long schoolId , String authority);
 
+    @Query("select u from User u where u.teacher.id = ?1")
+    List<User> findStudentByTeacher(Long teacherId);
 }

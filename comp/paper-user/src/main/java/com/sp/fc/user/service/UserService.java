@@ -106,4 +106,8 @@ public class UserService {
                 }
         );
     }
+
+    public List<User> findStudentsByTeacher(Long teacherId) {
+        return userRepository.findStudentByTeacher(teacherId);
+    }
 }

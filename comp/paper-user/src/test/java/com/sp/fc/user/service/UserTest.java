@@ -7,24 +7,22 @@ import com.sp.fc.user.repository.SchoolRepository;
 import com.sp.fc.user.repository.UserRepository;
 import com.sp.fc.user.service.helper.SchoolTestHelper;
 import com.sp.fc.user.service.helper.UserTestCommon;
-import com.sp.fc.user.service.helper.UserTestHelper;
-import org.hibernate.exception.ConstraintViolationException;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.data.domain.Page;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
+
+import javax.persistence.EntityManager;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -43,9 +41,15 @@ import static org.junit.jupiter.api.Assertions.*;
 public class UserTest  extends UserTestCommon {
 
 
+
+    private User user;
+    @Rollback(false)
+    @Transactional
     @BeforeEach
     public void before(){
         setService();
+        user = userTesthelper.saveUser("ugo","123","1",school);
+        user = userTesthelper.addAuthority(user.getId(),Authority.ROLE_STUDENT,Authority.ROLE_TEACHER);
     }
 
     @DisplayName("1. 유저 생성")
@@ -56,7 +60,6 @@ public class UserTest  extends UserTestCommon {
         searchedUser.ifPresent(System.out::println);
     }
 
-    @Transactional
     @DisplayName("2.유저 이름 변경")
     @Test
     void test_2(){
@@ -70,8 +73,8 @@ public class UserTest  extends UserTestCommon {
     @DisplayName("3.권한 부여")
     @Test
     void test_3(){
-        User authorizeUser = userTesthelper.addAuthority(user.getId(), Authority.ROLE_STUDENT);
-        userService.addAuthority(authorizeUser.getId(),Authority.ROLE_TEACHER);
+        userTesthelper.addAuthority(user.getId(), Authority.ROLE_STUDENT);
+        userService.addAuthority(user.getId(),Authority.ROLE_TEACHER);
 
         List<User> allUser = userRepository.findAll();
 
@@ -112,14 +115,44 @@ public class UserTest  extends UserTestCommon {
         );
     }
 
+
+
     @DisplayName("7.email 중복 문제")
     @Test
     void test_7(){
-        User.builder()
-                .school(school)
-                .username("ugo2")
-                .email("ugo@test.com")
-                .build();
-        assertThrows(DataIntegrityViolationException.class, ()->{userRepository.save(user);});
+        assertThrows(DataIntegrityViolationException.class, ()->{
+            userRepository.save(user);
+        });
+    }
+
+    @DisplayName("8.페이징 처리 테스트")
+    @Test
+    void test_8(){
+        userTesthelper.saveSeveralUser(10,school);
+
+        Page<User> users = userService.pagingUser(1, 5);
+
+        assertEquals(11,users.getTotalElements());
+        assertEquals(3,users.getTotalPages());
+        assertEquals(5,users.getContent().size());
+
+    }
+
+    @DisplayName("9.학생 , 선생님 목록 가져오기")
+    @Test
+    void test_9(){
+        userTesthelper.saveSeveralUser(20,school);
+        List<User> studentList = userService.findStudentList();
+        List<User> teacherList = userService.findTeacherList();
+
+        assertEquals(5,teacherList.size());
+        assertEquals(14,studentList.size());
+
+        for (User user1 : teacherList) {
+            System.out.println("teacher = " + user1);
+        }
+        for (User user1 : studentList) {
+            System.out.println("student = " + user1);
+        }
     }
 }
