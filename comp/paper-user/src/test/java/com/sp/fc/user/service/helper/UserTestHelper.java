@@ -3,16 +3,10 @@ package com.sp.fc.user.service.helper;
 import com.sp.fc.user.domain.Authority;
 import com.sp.fc.user.domain.School;
 import com.sp.fc.user.domain.User;
-import com.sp.fc.user.repository.SchoolRepository;
-import com.sp.fc.user.repository.UserRepository;
-import com.sp.fc.user.service.SchoolService;
 import com.sp.fc.user.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.junit.platform.commons.util.StringUtils;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -80,11 +74,25 @@ public class UserTestHelper {
     }
 
 
-    public User createTeacher(String name, String pwd , String grade ,School school) {
+    public User saveTeacher(String name, String pwd , String grade , School school) {
         User teacher = saveUser("teacher1", "1111", "1", school);
         addAuthority(teacher.getId() , Authority.ROLE_TEACHER);
 
         return teacher;
+    }
+
+    public void saveSeveralTeacher(int num,School school) {
+        for(int i = 0 ; i<num; i++){
+            User user = saveUser("teacher" + i+1, i + "123", String.valueOf(i), school);
+            addAuthority(user.getId(),Authority.ROLE_TEACHER);
+        }
+    }
+
+    public User saveStudent(String studentName , String pwd , String grade , School school,User teacher) {
+        User student = saveUser(studentName, pwd, grade, school);
+        student.setTeacher(teacher);
+        addAuthority(student.getId(),Authority.ROLE_STUDENT);
+        return  student;
     }
 
     public void saveSeveralStudent(int num,School school,User teacher) {
@@ -95,11 +103,10 @@ public class UserTestHelper {
         }
     }
 
-
-    public void saveSeveralTeacher(int num,School school) {
-        for(int i = 0 ; i<num; i++){
-            User user = saveUser("teacher" + i+1, i + "123", String.valueOf(i), school);
-            addAuthority(user.getId(),Authority.ROLE_TEACHER);
-        }
+    public void assertStudent(User student, String name, User teacher , School school, String grade) {
+        assertEquals(name, student.getUsername());
+        assertEquals(teacher.getUsername(), student.getTeacher().getUsername());
+        assertEquals(school.getName(), student.getSchool().getName());
+        assertEquals(grade, student.getGrade());
     }
 }

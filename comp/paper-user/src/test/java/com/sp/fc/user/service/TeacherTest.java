@@ -8,15 +8,12 @@ package com.sp.fc.user.service;
 import com.sp.fc.user.domain.Authority;
 import com.sp.fc.user.domain.User;
 import com.sp.fc.user.service.helper.UserTestCommon;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.util.List;
-import java.util.function.Supplier;
-import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -28,7 +25,7 @@ public class TeacherTest extends UserTestCommon {
     @BeforeEach
     public void before(){
         setService();
-        this.teacher = userTesthelper.createTeacher("teacher1" , "123", "1",school);
+        this.teacher = userTesthelper.saveTeacher("teacher1" , "123", "1",school);
     }
 
 
