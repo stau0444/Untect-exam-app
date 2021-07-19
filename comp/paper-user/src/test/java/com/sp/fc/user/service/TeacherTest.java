@@ -8,12 +8,17 @@ package com.sp.fc.user.service;
 import com.sp.fc.user.domain.Authority;
 import com.sp.fc.user.domain.User;
 import com.sp.fc.user.service.helper.UserTestCommon;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
-import java.util.List;
+import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -99,4 +104,33 @@ public class TeacherTest extends UserTestCommon {
         assertEquals(6,schoolTeacherList.size());
         assertTrue(schoolTeacherList.stream().allMatch(s->s.getSchool().getName().equals("서울학교")));
     }
+
+    @DisplayName("10.Function.Identity()")
+    @Test
+    void test_10(){
+        Member member = new Member(1L,"ugo");
+        Auth auth1 = new Auth(2L,"auth1");
+        Auth auth2 = new Auth(3L,"auth2");
+        Auth auth3 = new Auth(4L,"auth3");
+
+        Map<Auth,Long > collect = List.of(auth1, auth2, auth3)
+                .stream()
+                .collect(Collectors.toMap(Function.identity(),a-> member.getId()));
+
+    }
+    
+    @Data
+    @AllArgsConstructor
+    public static class Member{
+       private Long id;
+       private String name;
+    }
+
+    @Data
+    @AllArgsConstructor
+    public static class Auth{
+        private Long id;
+        private String auth;
+    }
+
 }

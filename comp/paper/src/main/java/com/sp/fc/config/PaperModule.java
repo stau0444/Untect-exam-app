@@ -1,21 +1,17 @@
 package com.sp.fc.config;
 
-
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.data.spel.spi.Function;
 
 @Configuration
-@ComponentScan("com.sp.fc.user")
+@ComponentScan("com.sp.fc.paper")
 @EnableJpaRepositories(basePackages = {
-        "com.sp.fc.user.repository"
+        "com.sp.fc.paper.repository"
 })
 @EntityScan(basePackages = {
-        "com.sp.fc.user.domain"
+        "com.sp.fc.paper.domain"
 })
-public class PaperUserModule {
-
-
+public class PaperModule {
 }
