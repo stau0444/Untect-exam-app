@@ -1,12 +1,11 @@
 package com.sp.fc.paper.domain;
 
 
+import com.sp.fc.user.domain.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.beans.factory.parsing.Problem;
-import org.springframework.security.core.userdetails.User;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;

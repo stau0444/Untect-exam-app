@@ -19,12 +19,12 @@ public interface PaperRepository extends JpaRepository<Paper,Long> {
     List<Paper> findAllByStudentUserIdOrderByCreatedDesc(Long studentUser);
     long countByStudentUserId(Long studentUserId);
 
-    Page<Paper> findAllByStudyUserIdAndStateOrderByCreatedAtDesc(Long studentId, Paper.PaperState state , Pageable pageable);
+    Page<Paper> findAllByStudentUserIdAndStateInOrderByCreatedAtDesc(Long studentId, Paper.PaperState state , Pageable pageable);
 
-    List<Paper> findAllByStudentUserIdAndStateInOrderByCreatedAtDesc(Long studentId,List<Paper.PaperState> states);
+    List<Paper> findAllByStudentUserIdAndStateOrderByCreatedAtDesc(Long studentId,Paper.PaperState state);
     long countByStudentUserIdAndState(Long studentId,Paper.PaperState state);
 
-    List<Paper> findAllByStudentUserIdAndStateOrderByCreatedAtDesc(Long studentId,List<Paper.PaperState> state);
-    long countByStudentUserIdAndStateIn(Long studentId,List<Paper.PaperState> state);
+    List<Paper> findAllByStudentUserIdAndStateInOrderByCreatedAtDesc(Long studentId,List<Paper.PaperState> states);
+    long countByStudentUserIdAndStateIn(Long studentId,List<Paper.PaperState> states);
 
 }

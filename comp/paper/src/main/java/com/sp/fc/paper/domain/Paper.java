@@ -1,11 +1,11 @@
 package com.sp.fc.paper.domain;
 
+import com.sp.fc.user.domain.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
-import org.springframework.security.core.userdetails.User;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -14,6 +14,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+/*
+
+paperTemplate는 학생이 시험보기 전의 시험지
+paper는 학생이 시험을 풀고 답을 적어놓은 시험지
+AnserSheet은 정답의 답안지
+Problem은 시험 문제
+문제의 정답은 Problem의 answer필드에 저장된다.
+PaperAnswer는 학생의 답을 의미한다.
+ */
+//한 시험에 여러개의 시험지가 존재한다
+//시험은 Paper 클래스 , 시험지는 PaperTemplate
 
 @Data
 @AllArgsConstructor
