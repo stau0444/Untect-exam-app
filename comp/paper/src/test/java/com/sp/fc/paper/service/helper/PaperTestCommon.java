@@ -18,6 +18,7 @@ public class PaperTestCommon extends UserTestCommon {
     @Autowired
     protected ProblemRepository problemRepository;
 
+
     protected PaperTemplateService paperTemplateService;
     protected PaperTemplateTestHelper paperTemplateTestHelper;
     protected ProblemService problemService;
@@ -28,9 +29,9 @@ public class PaperTestCommon extends UserTestCommon {
         this.paperTemplateRepository.deleteAll();
         setService();
 
-        this.paperTemplateTestHelper = new PaperTemplateTestHelper(this.paperTemplateService);
         this.problemService = new ProblemService(problemRepository);
         this.paperTemplateService = new PaperTemplateService(paperTemplateRepository,problemService);
+        this.paperTemplateTestHelper = new PaperTemplateTestHelper(this.paperTemplateService);
         this.teacher = this.userTesthelper.saveTeacher("teacher1" , "123","1",school);
 
     }

@@ -6,12 +6,20 @@
       <profile name="Gradle Imported" enabled="true">
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="false">
-          <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.projectlombok/lombok/1.18.20/18bcea7d5df4d49227b4a0743a536208ce4825bb/lombok-1.18.20.jar" />
+          <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.projectlombok/lombok/1.18.16/6dc192c7f93ec1853f70d59d8a6dcf94eb42866/lombok-1.18.16.jar" />
         </processorPath>
-        <module name="spring-sec-test-project.comp-paper.test" />
-        <module name="spring-sec-test-project.comp-paper-user.main" />
+        <module name="spring-sec-test-project.web-site-teacher.main" />
+        <module name="spring-sec-test-project.web-site-manager.main" />
+        <module name="spring-sec-test-project.server-paper-app.main" />
+        <module name="spring-sec-test-project.web-site-teacher.test" />
         <module name="spring-sec-test-project.comp-paper-user.test" />
+        <module name="spring-sec-test-project.web-site-student.main" />
         <module name="spring-sec-test-project.comp-paper.main" />
+        <module name="spring-sec-test-project.comp-paper.test" />
+        <module name="spring-sec-test-project.web-site-manager.test" />
+        <module name="spring-sec-test-project.web-site-student.test" />
+        <module name="spring-sec-test-project.comp-paper-user.main" />
+        <module name="spring-sec-test-project.server-paper-app.test" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="13" />

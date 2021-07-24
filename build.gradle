@@ -2,7 +2,7 @@ buildscript {
     ext {
         spring = "2.4.1"
         boot = "org.springframework.boot"
-        lombok = "org.projectlombok:lombok:1.18.20"
+        lombok = "org.projectlombok:lombok"
     }
     repositories {
         mavenCentral()
@@ -29,14 +29,14 @@ subprojects {
     }
 
     configurations {
-        //developmentOnly
+        developmentOnly
         runtimeClasspath {
             extendsFrom developmentOnly
         }
     }
 
     dependencies {
-        //developmentOnly("$boot:spring-boot-devtools")
+        developmentOnly("$boot:spring-boot-devtools")
         implementation "$boot:spring-boot-starter-security"
         implementation 'com.fasterxml.jackson.core:jackson-annotations'
 

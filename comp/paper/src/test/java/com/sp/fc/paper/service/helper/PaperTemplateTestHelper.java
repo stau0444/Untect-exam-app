@@ -11,6 +11,7 @@ public class PaperTemplateTestHelper {
 
     private final PaperTemplateService paperTemplateService;
 
+
     public PaperTemplate createPaperTemplate(User teacher , String paperName){
         PaperTemplate template = PaperTemplate.builder()
                 .name(paperName)
@@ -20,10 +21,12 @@ public class PaperTemplateTestHelper {
     }
 
     public Problem addProblem(Long ptId, String answer , String content){
-        return Problem.builder()
+        Problem problem = Problem.builder()
                 .answer(answer)
-                .paperTemplateId(ptId)
+                .templateId(ptId)
                 .content(content)
                 .build();
+        return paperTemplateService.addProblem(ptId, problem);
+
     }
 }

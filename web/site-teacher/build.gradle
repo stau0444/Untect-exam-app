@@ -1,0 +1,9 @@
+
+apply from:"../web-common.gradle"
+
+dependencies {
+    implementation("org.springframework:spring-tx")
+    implementation project(":comp-paper")
+    implementation project(":comp-paper-user")
+}
+

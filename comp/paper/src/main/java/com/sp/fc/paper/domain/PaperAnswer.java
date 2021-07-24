@@ -29,7 +29,7 @@ public class PaperAnswer {
     @Embeddable
     public static class PaperAnswerId implements Serializable{
         //시험지 아이디
-        private Long paperId;
+        private Long pId;
         //문제 번호
         private Integer num;
     }

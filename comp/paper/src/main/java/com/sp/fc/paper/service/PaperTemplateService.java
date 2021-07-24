@@ -39,7 +39,7 @@ public class PaperTemplateService {
 
     public Problem addProblem(long paperTemplateId , Problem problem){
         //파라미터로 들어온 문제에 시험지번호를 지정한다.
-        problem.setPaperTemplateId(paperTemplateId);
+        problem.setTemplateId(paperTemplateId);
         //시험지를 찾아오고
         return findById(paperTemplateId).map(paperTemplate -> {
             //문제 리스트를 꺼내온다 없으면 빈 리스트를 넣어준다.
@@ -67,7 +67,7 @@ public class PaperTemplateService {
         }).orElseThrow(()->new IllegalArgumentException(paperTemplateId + "시험지기 존재하지 않습니다." ));
     }
 
-    private Optional<PaperTemplate> findById(long paperTemplateId) {
+    public Optional<PaperTemplate> findById(long paperTemplateId) {
         return templateRepository.findById(paperTemplateId);
     }
 
@@ -150,7 +150,7 @@ public class PaperTemplateService {
     //유저의 아이디로 시험지 List를 가져온다 .
     //컨트롤러에서 유저의 ROLE이 학생인지 선생님인지를 구분하는 코드 필요
     public Page<PaperTemplate> findByTeacherId(Long userId, int pageNum , int size){
-        return templateRepository.findAllByUserIdOrderByCreatedAtDesc(userId, PageRequest.of(pageNum,size));
+        return templateRepository.findAllByUserIdOrderByCreatedAtDesc(userId, PageRequest.of(pageNum-1,size));
     }
 
     @Transactional(readOnly = true)

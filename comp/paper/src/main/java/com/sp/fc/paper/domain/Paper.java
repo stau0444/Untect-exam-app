@@ -1,14 +1,12 @@
 package com.sp.fc.paper.domain;
 
 import com.sp.fc.user.domain.User;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -45,8 +43,9 @@ public class Paper {
     @Transient
     private User user;
 
+    @ToString.Exclude
     @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-    private List<PaperAnswer> paperAnswerList;
+    private List<PaperAnswer> paperAnswerList = new ArrayList<>();
 
     private LocalDateTime createdAt;
     //시험 시작 시점

@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface ProblemRepository extends JpaRepository<Problem,Long> {
 
-    List<Problem> findAllByPaperTemplateIdOrderByIndexNum(Long paperTemplateId);
+    List<Problem> findAllByTemplateIdOrderByIndexNum(Long paperTemplateId);
 
     @Modifying
     @Query("update Problem set content=?2, answer=?3, updated=?4 where problemId=?1")

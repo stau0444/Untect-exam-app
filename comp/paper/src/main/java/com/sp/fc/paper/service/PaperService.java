@@ -43,7 +43,7 @@ public class PaperService {
     public List<Paper> publishPaper(long paperTemplateId,List<Long> studentIds){
         //등록된 페이퍼 리스트를 가져와서 하나씩꺼내고
         List<Paper> papers = paperTemplateRepository.findById(paperTemplateId).map(paperTemplate ->
-                //파라미터로 들어온 학생아이디로 학생을 찾아 스트림을열어 하나씩 Paper를 배포한다.
+                //파라미터로 들어온 학생아이디로 학생을 찾아 스트림을 열어 하나씩 Paper를 배포한다.
                 StreamSupport.stream(userRepository.findAllById(studentIds).spliterator(),false)
                     .map(student->{
                         //페이퍼 생성
@@ -140,15 +140,15 @@ public class PaperService {
                     paperAnswerRepository.save(a);
                 }
             });
-            //시험이 끝났음으로 상태를 END로 만들고
-            paper.setState(Paper.PaperState.END);
-            //끝난 시간을 셋팅
-            paper.setEndTime(LocalDateTime.now());
-            //변경사항 저장
-            Paper saved = paperRepository.save(paper);
-            //체점 완료 수를 증가
-            paperTemplateService.updateCompleteCount(saved.getPaperTemplateId());
         }
+        //시험이 끝났음으로 상태를 END로 만들고
+        paper.setState(Paper.PaperState.END);
+        //끝난 시간을 셋팅
+        paper.setEndTime(LocalDateTime.now());
+        //변경사항 저장
+        Paper saved = paperRepository.save(paper);
+        //체점 완료 수를 증가
+        paperTemplateService.updateCompleteCount(saved.getPaperTemplateId());
     }
 
     //
@@ -159,7 +159,7 @@ public class PaperService {
 
     @Transactional(readOnly = true)
     public List<Paper> getPapersByUser(Long studyUserId) {
-        return paperRepository.findAllByStudentUserIdOrderByCreatedDesc(studyUserId);
+        return paperRepository.findAllByStudentUserIdOrderByCreatedAtDesc(studyUserId);
     }
 
     @Transactional(readOnly = true)
@@ -179,7 +179,7 @@ public class PaperService {
 
     @Transactional(readOnly = true)
     public Page<Paper> getPapersByUserResult(Long studyUserId, int pageNum, int size) {
-        return paperRepository.findAllByStudentUserIdAndStateInOrderByCreatedAtDesc(studyUserId, Paper.PaperState.END, PageRequest.of(pageNum-1, size));
+        return paperRepository.findAllByStudentUserIdAndStateInOrderByCreatedAtDesc(studyUserId, List.of(Paper.PaperState.END), PageRequest.of(pageNum-1, size));
     }
 
     @Transactional(readOnly = true)

@@ -17,9 +17,11 @@ public class Problem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "problem_id")
     private Long id;
 
-    private Long paperTemplateId;
+    @Column(name = "paper_template_id")
+    private Long templateId;
 
     private int indexNum;
 
