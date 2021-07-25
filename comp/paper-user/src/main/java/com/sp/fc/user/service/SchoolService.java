@@ -3,6 +3,8 @@ package com.sp.fc.user.service;
 import com.sp.fc.user.domain.School;
 import com.sp.fc.user.repository.SchoolRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,9 +32,12 @@ public class SchoolService {
         return schoolRepository.getCities();
     }
 
-    public Optional<School> updateName(Long schoolId,String name){
+    public Optional<School> updateName(Long schoolId,String name,String city){
         Optional<School> school = schoolRepository.findById(schoolId);
-        school.ifPresent(s->s.setName(name));
+        school.ifPresent(s->{
+            s.setName(name);
+            s.setCity(city);
+        });
         return school;
     }
 
@@ -42,5 +47,16 @@ public class SchoolService {
 
     public School findById(Long schoolId) {
         return schoolRepository.findById(schoolId).orElseThrow(()->new IllegalArgumentException("해당 학교 없음"));
+    }
+    public Optional<School> findByIdOp(Long schoolId) {
+        return schoolRepository.findById(schoolId);
+    }
+
+    public Long countSchool() {
+        return schoolRepository.count();
+    }
+
+    public Page<School> getSchoolList(Integer pageNum, Integer size) {
+        return schoolRepository.findAll(PageRequest.of(pageNum-1 , size));
     }
 }

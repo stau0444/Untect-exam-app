@@ -38,4 +38,8 @@ public interface UserRepository extends JpaRepository<User,Long> {
 
     @Query("select u from User u where u.teacher.id = ?1")
     List<User> findStudentByTeacher(Long teacherId);
+
+    @Query("select count(u) from User u , Authority a where u.id = a.userId and a.authority = ?1 and u.school.id = ?2")
+    int countAllByAuthoritiesInAndSchool(String authority,Long schoolId);
+
 }

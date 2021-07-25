@@ -50,6 +50,15 @@ public class DBInit implements CommandLineRunner {
                 .name("명동학교")
                 .build());
 
+        User admin = User.builder()
+                .password(encoder.encode("111"))
+                .email("admin@test.com")
+                .username("admin1")
+                .enabled(true)
+                .build();
+        User savedAdmin = userService.save(admin);
+        userService.addAuthority(savedAdmin.getId(),Authority.ROLE_ADMIN);
+
         User teacher = User.builder()
                 .password(encoder.encode("111"))
                 .school(school)

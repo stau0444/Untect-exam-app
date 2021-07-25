@@ -1,17 +1,16 @@
 package com.sp.fc.user.service;
 
 import com.sp.fc.user.domain.Authority;
+import com.sp.fc.user.domain.School;
 import com.sp.fc.user.domain.User;
 import com.sp.fc.user.repository.SchoolRepository;
 import com.sp.fc.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
@@ -112,4 +111,22 @@ public class UserService {
     }
 
 
+    public Long countStudent() {
+        return userRepository.countAllByAuthoritiesIn(Authority.ROLE_STUDENT);
+    }
+
+    public Long countTeacher() {
+        return userRepository.countAllByAuthoritiesIn(Authority.ROLE_TEACHER);
+    }
+
+    public int schoolUserCountByAuthority(String authority,Long schoolId) {
+        return userRepository.countAllByAuthoritiesInAndSchool(authority,schoolId);
+    }
+
+    public void setSchoolUserCount(Page<School> schoolList) {
+        schoolList.getContent().forEach(school -> {
+            school.setStudentCount(schoolUserCountByAuthority(Authority.ROLE_STUDENT,school.getId()));
+            school.setTeacherCount(schoolUserCountByAuthority(Authority.ROLE_TEACHER,school.getId()));
+        });
+    }
 }

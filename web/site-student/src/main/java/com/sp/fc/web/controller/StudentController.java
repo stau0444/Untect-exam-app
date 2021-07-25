@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -98,8 +97,8 @@ public class StudentController {
     public String resultList(
             @AuthenticationPrincipal User student,
                                      Model model,
-                        @RequestParam(value = "pageNum" , defaultValue = "1") int pageNum,
-                        @RequestParam(value = "size" , defaultValue = "2") int size
+                        @RequestParam(value = "pageNum" , defaultValue = "1") Integer pageNum,
+                        @RequestParam(value = "size" , defaultValue = "2") Integer size
             ){
 
         Page<Paper> papersByUserResult = paperService.getPapersByUserResult(student.getId(), pageNum, size);
