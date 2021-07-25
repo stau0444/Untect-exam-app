@@ -192,7 +192,7 @@ public class PaperService {
         return paperRepository.findAllByStudentUserIdAndStateInOrderByCreatedAtDesc(studyUserId, states);
     }
 
-    @PostAuthorize("returnObject.isEmpty() || returnObject.get().studyUserId == principal.userId")
+    @PostAuthorize("returnObject.isEmpty() || returnObject.get().studentUserId == principal.id")
     @Transactional(readOnly = true)
     public Optional<Paper> findPaper(Long paperId) {
         return paperRepository.findById(paperId).map(paper->{

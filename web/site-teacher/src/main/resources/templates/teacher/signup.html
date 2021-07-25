@@ -17,7 +17,7 @@
 
             <div class="col-md-12 order-md-1">
                 <h4 class="mb-3"> 선생님 등록 </h4>
-                <form class="needs-validation" novalidate method="post" action="/signUp/teacher">
+                <form class="needs-validation" novalidate method="post" action="/signup/teacher">
 
                     <div class="row">
                         <div class="col-md-6 mb-3">
@@ -93,7 +93,8 @@
             fetch("/schools?city="+value).then(function (response) {
                 return response.json();
             }).then(function (data) {
-                const options = data.map(school=>`<option value="${school.schoolId}">${school.name}</option>`).join('');
+                console.log(data);
+                const options = data.map(school=>`<option value="${school.id}">${school.name}</option>`).join('');
                 $(schoolSel).html(options);
                 console.log($(schoolSel).html());
             }).catch(function (err) {

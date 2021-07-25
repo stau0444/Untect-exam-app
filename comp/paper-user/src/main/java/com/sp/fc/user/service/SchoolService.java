@@ -39,4 +39,8 @@ public class SchoolService {
     public List<School> findAllByCity(String city) {
         return schoolRepository.findAllByCity(city);
     }
+
+    public School findById(Long schoolId) {
+        return schoolRepository.findById(schoolId).orElseThrow(()->new IllegalArgumentException("해당 학교 없음"));
+    }
 }

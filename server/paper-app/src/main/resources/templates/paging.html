@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 
-<bock th:fragment="paging">
+<block th:fragment="paging">
     <div th:if="${paging != null}">
     <nav aria-label="Page navigation example" th:with="start=${T(Math).floor(page.number/10)*10 + 1}">
 
@@ -37,5 +37,5 @@
         </ul>
     </nav>
     </div>
-</bock>
+</block>
 </html>
