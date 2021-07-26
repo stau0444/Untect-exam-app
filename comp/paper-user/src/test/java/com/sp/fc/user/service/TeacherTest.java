@@ -94,16 +94,16 @@ public class TeacherTest extends UserTestCommon {
         }
     }
 
-    @DisplayName("5.학교로 선생님 리스트 조회")
-    @Test
-    void test_5(){
-        userTesthelper.saveSeveralTeacher(5,school);
-
-        List<User> schoolTeacherList = userService.findBySchoolTeacherList(school.getId());
-
-        assertEquals(6,schoolTeacherList.size());
-        assertTrue(schoolTeacherList.stream().allMatch(s->s.getSchool().getName().equals("서울학교")));
-    }
+//    @DisplayName("5.학교로 선생님 리스트 조회")
+//    @Test
+//    void test_5(){
+//        userTesthelper.saveSeveralTeacher(5,school);
+//
+//        List<User> schoolTeacherList = userService.findBySchoolTeacherList(school.getId());
+//
+//        assertEquals(6,schoolTeacherList.size());
+//        assertTrue(schoolTeacherList.stream().allMatch(s->s.getSchool().getName().equals("서울학교")));
+//    }
 
     @DisplayName("10.Function.Identity()")
     @Test

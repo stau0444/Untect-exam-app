@@ -19,7 +19,7 @@ public interface UserRepository extends JpaRepository<User,Long> {
     List<User> findUserByAuthorities(String authorities);
 
     @Query("select u from User u ,Authority a where u.id = a.userId and a.authority = ?1")
-    Page<User> findUserByAuthorities(String authorities , Pageable pageable);
+    Page<User> findUserByAuthoritiesPaging(String authorities , Pageable pageable);
 
     @Query("select u from User u ,Authority a where u.school.id = ?1 and u.id = a.userId and a.authority =?2")
     List<User> findAllBySchool(Long schoolId,String authority);

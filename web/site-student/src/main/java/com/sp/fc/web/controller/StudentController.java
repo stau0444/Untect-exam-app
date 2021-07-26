@@ -29,7 +29,6 @@ public class StudentController {
     private final PaperService paperService;
     private final PaperTemplateService paperTemplateService;
 
-    @PreAuthorize("hasAuthority('ROLE_STUDENT')")
     @GetMapping(value = {"","/"})
     public String studentHome(@AuthenticationPrincipal User student, Model model){
         model.addAttribute("paperCount",paperService.countPapersByUserIng(student.getId()));

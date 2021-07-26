@@ -35,9 +35,9 @@ public class SchoolManagerController {
 
     ){
         Page<School> schoolList = schoolService.getSchoolList(pageNum, size);
-        userService.setSchoolUserCount(schoolList);
+        Page<SchoolData> schoolData = setSchoolUserCount(schoolList);
         model.addAttribute("paging", true);
-        model.addAttribute("page",schoolService.getSchoolList(pageNum,size));
+        model.addAttribute("page",schoolData);
         model.addAttribute("menu","school");
         return "/manager/school/list";
     }
@@ -73,5 +73,17 @@ public class SchoolManagerController {
                         .build()
         ));
         return "redirect:/manager/school/list";
+    }
+
+    private Page<SchoolData> setSchoolUserCount(Page<School> schoolList) {
+        return schoolList.map(
+                school ->
+                        new SchoolData(
+                                school.getId(),
+                                school.getName(),
+                                school.getCity(),
+                                userService.schoolUserCountByAuthority(Authority.ROLE_TEACHER,school.getId()),
+                                userService.schoolUserCountByAuthority(Authority.ROLE_STUDENT,school.getId())
+                        ));
     }
 }

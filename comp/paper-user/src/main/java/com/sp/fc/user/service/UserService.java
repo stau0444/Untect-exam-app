@@ -78,6 +78,8 @@ public class UserService {
         });
     }
     public List<User> findTeacherList(){return userRepository.findUserByAuthorities(Authority.ROLE_TEACHER);}
+    public Page<User> findTeacherListPaging(Integer pageNum , Integer size){return userRepository.findUserByAuthoritiesPaging(Authority.ROLE_TEACHER,PageRequest.of(pageNum-1,size));}
+
     public List<User> findStudentList(){return userRepository.findUserByAuthorities(Authority.ROLE_STUDENT);}
 
     public Long findTeacherStudentCount(Long userId){return userRepository.countStudentByTeacher(userId);}
@@ -123,10 +125,12 @@ public class UserService {
         return userRepository.countAllByAuthoritiesInAndSchool(authority,schoolId);
     }
 
-    public void setSchoolUserCount(Page<School> schoolList) {
-        schoolList.getContent().forEach(school -> {
-            school.setStudentCount(schoolUserCountByAuthority(Authority.ROLE_STUDENT,school.getId()));
-            school.setTeacherCount(schoolUserCountByAuthority(Authority.ROLE_TEACHER,school.getId()));
-        });
+
+    public Long countStudentByTeacher(Long teacherId) {
+        return userRepository.countStudentByTeacher(teacherId);
+    }
+
+    public Page<User> findStudentListPaging(Integer pageNum, Integer size) {
+        return userRepository.findUserByAuthoritiesPaging(Authority.ROLE_STUDENT,PageRequest.of(pageNum-1,size));
     }
 }

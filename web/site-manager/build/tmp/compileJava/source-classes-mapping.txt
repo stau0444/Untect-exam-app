@@ -1,0 +1,18 @@
+com/sp/fc/web/dto/UpdateSchoolData.java
+ com.sp.fc.web.dto.UpdateSchoolData
+ com.sp.fc.web.dto.UpdateSchoolData$UpdateSchoolDataBuilder
+com/sp/fc/web/controller/SchoolData.java
+ com.sp.fc.web.controller.SchoolData
+ com.sp.fc.web.controller.SchoolData$SchoolDataBuilder
+com/sp/fc/web/controller/TeacherData.java
+ com.sp.fc.web.controller.TeacherData
+com/sp/fc/web/controller/StudentData.java
+ com.sp.fc.web.controller.StudentData
+com/sp/fc/web/controller/SchoolManagerController.java
+ com.sp.fc.web.controller.SchoolManagerController
+com/sp/fc/web/controller/TeacherManagerController.java
+ com.sp.fc.web.controller.TeacherManagerController
+com/sp/fc/web/controller/AdminController.java
+ com.sp.fc.web.controller.AdminController
+com/sp/fc/web/controller/StudentManagerController.java
+ com.sp.fc.web.controller.StudentManagerController

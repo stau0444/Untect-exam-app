@@ -94,6 +94,20 @@ public class DBInit implements CommandLineRunner {
         User saveStudent2 = userService.save(student2);
         userService.addAuthority(saveStudent2.getId(),Authority.ROLE_STUDENT);
 
+        for (int i = 10 ; i<100; i++){
+            User user = User.builder()
+                    .password(encoder.encode("111"))
+                    .school(school)
+                    .email("student" + i + "@test.com")
+                    .username("student" + i)
+                    .grade("1")
+                    .enabled(true)
+                    .teacher(teacher)
+                    .build();
+            User save = userService.save(user);
+            userService.addAuthority(save.getId(),Authority.ROLE_STUDENT);
+
+        }
         PaperTemplate engTemplate = PaperTemplate.builder()
                 .creator(teacher)
                 .userId(teacher.getId())

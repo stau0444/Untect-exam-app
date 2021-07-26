@@ -33,8 +33,4 @@ public class School {
 
     private LocalDateTime updatedAt;
 
-    private int teacherCount;
-
-    private int studentCount;
-
 }

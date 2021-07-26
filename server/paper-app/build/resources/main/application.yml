@@ -1,0 +1,36 @@
+server:
+  port: 9060
+
+
+spring:
+
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+
+  datasource:
+    url: jdbc:h2:tcp://localhost/~/examApp
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+
+  devtools:
+    livereload:
+      enabled: true
+    restart:
+      enabled: true
+
+  thymeleaf:
+    prefix: classpath:/templates/
+    cache: false
+    check-template-location: true
+    suffix: .html
+
+#  web:
+#    resources:
+#      static-locations:
+
+logging:
+  level:
+    org.springframework.web: trace
