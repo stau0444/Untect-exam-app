@@ -108,10 +108,11 @@
 
             cityEle.addEventListener("change", ()=>{
                 const value= cityEle.options[cityEle.selectedIndex].text;
+                console.log("cityid="+value)
                 fetch("/schools?city="+value).then(function (response) {
                     return response.json();
                 }).then(function (data) {
-                    const options = '<option>선택</option>'+data.map(school=>`<option value="${school.schoolId}">${school.name}</option>`).join('');
+                    const options = '<option>선택</option>'+data.map(school=>`<option value="${school.id}">${school.name}</option>`).join('');
                     $(schoolSel).html(options);
                 }).catch(function (err) {
                     console.warn('Something went wrong.', err);
@@ -120,10 +121,11 @@
 
             schoolSel.addEventListener('change', ()=>{
                 const value= schoolSel.options[schoolSel.selectedIndex].value;
+                console.log(value);
                 fetch("/teachers?schoolId="+value).then(function(response){
                     return response.json();
                 }).then(function(data){
-                    const options = '<option>선택</option>'+data.map(t=>`<option value="${t.userId}">${t.name}</option>`).join('');
+                    const options = '<option>선택</option>'+data.map(t=>`<option value="${t.id}">${t.name}</option>`).join('');
                     $(teacherSel).html(options);
                 }).catch(function(err){
                     console.warn('Something went wrong.', err);

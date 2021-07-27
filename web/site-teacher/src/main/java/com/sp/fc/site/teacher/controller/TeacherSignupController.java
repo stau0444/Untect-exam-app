@@ -42,7 +42,7 @@ public class TeacherSignupController {
     public String signUp(SignUpData signUpData, Model model){
         School school = schoolService.findById(signUpData.getSchoolId());
         User newTeacher = userService.save(User.builder()
-                .username(signUpData.getName())
+                .name(signUpData.getName())
                 .school(school)
                 .email(signUpData.getEmail())
                 .password(encoder.encode(signUpData.getPassword()))

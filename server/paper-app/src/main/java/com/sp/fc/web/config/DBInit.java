@@ -53,7 +53,7 @@ public class DBInit implements CommandLineRunner {
         User admin = User.builder()
                 .password(encoder.encode("111"))
                 .email("admin@test.com")
-                .username("admin1")
+                .name("admin@test.com")
                 .enabled(true)
                 .build();
         User savedAdmin = userService.save(admin);
@@ -63,7 +63,7 @@ public class DBInit implements CommandLineRunner {
                 .password(encoder.encode("111"))
                 .school(school)
                 .email("teacher1@test.com")
-                .username("teacher1")
+                .name("teacher1@test.com")
                 .grade("1")
                 .enabled(true)
                 .build();
@@ -75,7 +75,7 @@ public class DBInit implements CommandLineRunner {
                 .school(school)
                 .email("student1@test.com")
                 .grade("1")
-                .username("student1")
+                .name("student1@test.com")
                 .teacher(teacher)
                 .enabled(true)
                 .build();
@@ -86,7 +86,7 @@ public class DBInit implements CommandLineRunner {
                 .password(encoder.encode("111"))
                 .school(school)
                 .email("student2@test.com")
-                .username("student2")
+                .name("student2@test.com")
                 .grade("1")
                 .enabled(true)
                 .teacher(teacher)
@@ -99,7 +99,7 @@ public class DBInit implements CommandLineRunner {
                     .password(encoder.encode("111"))
                     .school(school)
                     .email("student" + i + "@test.com")
-                    .username("student" + i)
+                    .name("student" + i + "@test.com")
                     .grade("1")
                     .enabled(true)
                     .teacher(teacher)

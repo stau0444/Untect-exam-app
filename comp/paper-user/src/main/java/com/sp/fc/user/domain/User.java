@@ -25,12 +25,14 @@ public class User implements UserDetails {
     @JoinColumn(foreignKey = @ForeignKey(name = "userId"))
     private Set<Authority> authorities = new HashSet<>();
 
+
+
     @Column(unique = true)
     private String email;
 
     private String password;
 
-    private String username;
+    private String name;
 
     private String grade;
 
@@ -68,4 +70,8 @@ public class User implements UserDetails {
         return enabled;
     }
 
+    @Override
+    public String getUsername() {
+        return email;
+    }
 }

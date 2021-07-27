@@ -21,7 +21,7 @@ public class UserTestHelper {
     public User saveUser(String username, String password, String grade, School school){
 
         User user = User.builder()
-                .username(username)
+                .name(username)
                 .email(username+"@test.com")
                 .enabled(true)
                 .password(encoder.encode(password))

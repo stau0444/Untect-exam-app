@@ -64,7 +64,7 @@ public class UserTest  extends UserTestCommon {
     @Test
     void test_2(){
         Optional<User> searchedUser = userService.findUser(user.getId());
-        searchedUser.ifPresent(u -> u.setUsername("황우고"));
+        searchedUser.ifPresent(u -> u.setName("황우고"));
         List<User> allUser = userRepository.findAll();
 
         assertEquals("황우고" , allUser.get(0).getUsername());

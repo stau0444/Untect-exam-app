@@ -39,11 +39,11 @@ public class HomeController {
         //인증을 마친 사용자가 로그인 페이지에 접속했을 시에는 인증을 따로 거치지않고
         //사용자 권한에 맞는 사이트로 리다일렉트시킨다.
         if(user != null && user.isEnabled()){
-            if(user.getAuthorities().contains(Authority.ROLE_ADMIN)){
+            if(user.getAuthorities().contains(new Authority(user.getId(),Authority.ROLE_ADMIN))){
                 return "redirect:/manager";
-            }else if(user.getAuthorities().contains(Authority.ROLE_TEACHER)){
+            }else if(user.getAuthorities().contains(new Authority(user.getId(),Authority.ROLE_TEACHER))){
                 return "redirect:/teacher";
-            }else if(user.getAuthorities().contains(Authority.ROLE_STUDENT)){
+            }else if(user.getAuthorities().contains(new Authority(user.getId(),Authority.ROLE_STUDENT))){
                 return "redirect:/student";
             }
         }

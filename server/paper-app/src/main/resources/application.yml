@@ -1,7 +1,8 @@
 server:
   port: 9060
-
-
+  servlet:
+    session:
+      timeout: 10s
 spring:
 
   jpa:
@@ -26,6 +27,8 @@ spring:
     cache: false
     check-template-location: true
     suffix: .html
+  session:
+    timeout: 10s
 
 #  web:
 #    resources:

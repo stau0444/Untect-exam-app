@@ -4,6 +4,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.web.authentication.RememberMeServices;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AndRequestMatcher;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
@@ -17,8 +18,9 @@ import java.io.IOException;
 public class CustomLoginFilter extends UsernamePasswordAuthenticationFilter {
     private final AuthenticationManager authenticationManager;
 
-    public CustomLoginFilter(AuthenticationManager authenticationManager) {
+    public CustomLoginFilter(AuthenticationManager authenticationManager,RememberMeServices rememberMeServices) {
         this.authenticationManager = authenticationManager;
+        this.setRememberMeServices(rememberMeServices);
         this.setRequiresAuthenticationRequestMatcher(new AntPathRequestMatcher("/login","POST"));
         this.setAuthenticationSuccessHandler(new CustomLoginSuccessHandler());
         this.setAuthenticationFailureHandler(new CustomFailureHandler());
@@ -31,6 +33,7 @@ public class CustomLoginFilter extends UsernamePasswordAuthenticationFilter {
                 .username(request.getParameter("username"))
                 .password(request.getParameter("password"))
                 .site(request.getParameter("site"))
+                .rememberMe(request.getParameter("remember-me") != null)
                 .build();
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(loginData.getUsername(), loginData.getPassword());
 
