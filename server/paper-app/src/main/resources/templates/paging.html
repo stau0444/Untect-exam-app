@@ -3,10 +3,10 @@
 
 <block th:fragment="paging">
     <div th:if="${paging != null}">
-    <nav aria-label="Page navigation example" th:with="start=${T(Math).floor(page.number/10)*10 + 1}">
+    <nav aria-label="Page navigation example" th:with="start=${T(Math).floor(page.number/5)*5 + 1}">
 
         <ul class="pagination justify-content-center"
-            th:with="last=(${start + 9 < page.totalPages ? start + 9 : page.totalPages})">
+            th:with="last=(${start + 4 < page.totalPages ? start + 4 : page.totalPages})">
             <li class="page-item" th:classappend="${page.first} ? 'active'">
                 <a class="page-link"  th:href="@{${path}(pageNum=1)}" aria-label="First">
                     <span aria-hidden="true">First</span>

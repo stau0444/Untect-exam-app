@@ -12,6 +12,7 @@ import com.sp.fc.user.repository.UserRepository;
 import com.sp.fc.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -36,7 +37,12 @@ public class TeacherController {
 
     @PreAuthorize("hasAuthority('ROLE_TEACHER')")
     @GetMapping({"/",""})
-    public String teacherHome(@AuthenticationPrincipal User teacher, Model model){
+    public String teacherHome(
+            @AuthenticationPrincipal User teacher,
+            Model model,
+            @RequestParam(value = "pageNum",defaultValue = "1") Integer pageNum,
+            @RequestParam(value = "size",defaultValue = "10") Integer size
+    ){
 
         model.addAttribute("studentCount", userService.findTeacherStudentCount(teacher.getId()));
         model.addAttribute("paperTemplateCount",paperTemplateService.countByUserId(teacher.getId()));
@@ -45,9 +51,19 @@ public class TeacherController {
     }
 
     @GetMapping("/study/list")
-    public String studentList(@AuthenticationPrincipal User teacher, Model model){
+    public String studentList(
+            @AuthenticationPrincipal User teacher,
+            Model model,
+            @RequestParam(value = "pageNum",defaultValue = "1") Integer pageNum,
+            @RequestParam(value = "size",defaultValue = "10") Integer size
+    ){
+        Page<User> students = userService.findStudentsByTeacher(teacher.getId(), pageNum, size);
+
+        students.getNumberOfElements();
+
         model.addAttribute("menu","student");
-        model.addAttribute("studyList",userService.findStudentsByTeacher(teacher.getId()));
+        model.addAttribute("page",userService.findStudentsByTeacher(teacher.getId(),pageNum,size));
+        model.addAttribute("paging",true);
         return "/teacher/study/list";
     }
 
@@ -60,27 +76,9 @@ public class TeacherController {
 
         model.addAttribute("menu", "paper");
         Page<PaperTemplate> page = paperTemplateService.findByTeacherId(teacher.getId(), pageNum, size);
+        model.addAttribute("paging",true);
         model.addAttribute("page",page);
         return "/teacher/paperTemplate/list";
-    }
-
-    @GetMapping("/paperTemplate/list1")
-    @ResponseBody
-    public Page<PaperTemplate> paperTemplateList1(@AuthenticationPrincipal User teacher ,
-                                    Model model,
-                                    @RequestParam(value = "pageNum",defaultValue = "1") Integer pageNum,
-                                    @RequestParam(value = "size",defaultValue = "10") Integer size
-    ){
-
-        model.addAttribute("menu", "paper");
-        Page<PaperTemplate> page = paperTemplateService.findByTeacherId(teacher.getId(), pageNum, size)
-                .map(template->{
-                    return template;
-                });
-        List<PaperTemplate> content = page.getContent();
-
-        model.addAttribute("page",page);
-        return page;
     }
 
     @GetMapping("/paperTemplate/create")

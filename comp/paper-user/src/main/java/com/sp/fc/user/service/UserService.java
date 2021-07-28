@@ -7,6 +7,7 @@ import com.sp.fc.user.repository.SchoolRepository;
 import com.sp.fc.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -110,6 +111,10 @@ public class UserService {
 
     public List<User> findStudentsByTeacher(Long teacherId) {
         return userRepository.findStudentByTeacher(teacherId);
+    }
+
+    public Page<User> findStudentsByTeacher(Long teacherId ,Integer pageNum,Integer size) {
+        return userRepository.findStudentByTeacher  (Authority.ROLE_STUDENT,teacherId,PageRequest.of(pageNum-1,size));
     }
 
 

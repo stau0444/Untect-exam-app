@@ -4,11 +4,12 @@ server:
     session:
       timeout: 10s
 spring:
-
   jpa:
     hibernate:
       ddl-auto: create-drop
+      default_batch_fetch_size: 100
     show-sql: true
+
 
   datasource:
     url: jdbc:h2:tcp://localhost/~/examApp

@@ -2,8 +2,9 @@ com/sp/fc/web/config/CustomLoginSuccessHandler.java
  com.sp.fc.web.config.CustomLoginSuccessHandler
 com/sp/fc/web/PaperApp.java
  com.sp.fc.web.PaperApp
-com/sp/fc/web/contoller/HomeController.java
- com.sp.fc.web.contoller.HomeController
+com/sp/fc/web/config/SecurityConfig.java
+ com.sp.fc.web.config.SecurityConfig
+ com.sp.fc.web.config.SecurityConfig$1
 com/sp/fc/web/config/CustomFailureHandler.java
  com.sp.fc.web.config.CustomFailureHandler
 com/sp/fc/web/config/CustomLoginFilter.java
@@ -11,8 +12,7 @@ com/sp/fc/web/config/CustomLoginFilter.java
 com/sp/fc/web/config/UserLoginForm.java
  com.sp.fc.web.config.UserLoginForm
  com.sp.fc.web.config.UserLoginForm$UserLoginFormBuilder
-com/sp/fc/web/config/SecurityConfig.java
- com.sp.fc.web.config.SecurityConfig
- com.sp.fc.web.config.SecurityConfig$1
+com/sp/fc/web/contoller/HomeController.java
+ com.sp.fc.web.contoller.HomeController
 com/sp/fc/web/config/DBInit.java
  com.sp.fc.web.config.DBInit

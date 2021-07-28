@@ -1,5 +1,6 @@
 package com.sp.fc.user.repository;
 
+import com.sp.fc.user.domain.Authority;
 import com.sp.fc.user.domain.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -39,6 +40,10 @@ public interface UserRepository extends JpaRepository<User,Long> {
 
     @Query("select u from User u where u.teacher.id = ?1")
     List<User> findStudentByTeacher(Long teacherId);
+
+
+    @Query("select u from User u ,Authority a where u.id = a.userId and a.authority = ?1 and u.teacher.id = ?2")
+    Page<User> findStudentByTeacher(String authority, Long teacherId, Pageable pageable);
 
     @Query("select count(u) from User u , Authority a where u.id = a.userId and a.authority = ?1 and u.school.id = ?2")
     int countAllByAuthoritiesInAndSchool(String authority,Long schoolId);

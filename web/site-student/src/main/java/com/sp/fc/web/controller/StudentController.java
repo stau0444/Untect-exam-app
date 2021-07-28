@@ -100,9 +100,7 @@ public class StudentController {
             ){
 
         Page<Paper> papersByUserResult = paperService.getPapersByUserResult(student.getId(), pageNum, size);
-        for (Paper paper : papersByUserResult.getContent()) {
-            System.out.println("paper = " + paper);
-        }
+
         model.addAttribute("page",papersByUserResult);
         model.addAttribute("paging",true);
 
